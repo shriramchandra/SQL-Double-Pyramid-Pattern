@@ -1,0 +1,36 @@
+USE [SQLInterview]
+GO
+
+/****** Object:  StoredProcedure [dbo].[SP_DISPLAYSTAR]    Script Date: 11/10/2016 21:41:50 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[SP_DISPLAYSTAR] @Pattern char(1) = '*', @BaselineDepth INT = 5
+AS
+DECLARE @symbol CHAR(1)=@Pattern;
+DECLARE @level INT=@BaselineDepth;
+DECLARE @cnt INT =1;
+DECLARE @freshcnt INT =@level-1;
+
+CREATE TABLE #TmpTblPattern(
+ pattern char(4000))
+WHILE @cnt <= @level
+BEGIN
+Insert into #TmpTblPattern
+select replicate('	',((@level*2)-(@cnt+2)))+replicate(@symbol,(@cnt*2)-1) as pattern
+SET @cnt = @cnt + 1;
+END;
+WHILE @freshcnt > 0
+BEGIN
+Insert into #TmpTblPattern
+select replicate('	',((@level*2)-(@freshcnt+2)))+replicate(@symbol,(@freshcnt*2)-1) as pattern;
+SET @freshcnt = @freshcnt - 1;
+END;
+select * from #TmpTblPattern;
+
+IF OBJECT_ID('tempdb.dbo.#TmpTblPattern', 'U') IS NOT NULL
+  DROP TABLE #TmpTblPattern; 
+GO
