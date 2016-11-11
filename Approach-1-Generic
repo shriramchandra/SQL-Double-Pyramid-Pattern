@@ -1,14 +1,14 @@
 USE [SQLInterview]
 GO
 
-/****** Object:  StoredProcedure [dbo].[SP_DISPLAYSTAR]    Script Date: 11/10/2016 21:41:50 ******/
+/****** Object:  StoredProcedure [dbo].[SP_DISPLAY_PYRAMID_PATTERN]    Script Date: 11/10/2016 21:41:50 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE PROCEDURE [dbo].[SP_DISPLAYSTAR] @Pattern char(1) = '*', @BaselineDepth INT = 5
+CREATE PROCEDURE [dbo].[SP_DISPLAY_PYRAMID_PATTERN] @Pattern char(1) = '*', @BaselineDepth INT = 5
 AS
 DECLARE @symbol CHAR(1)=@Pattern;
 DECLARE @level INT=@BaselineDepth;
