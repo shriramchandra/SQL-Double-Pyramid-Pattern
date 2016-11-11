@@ -1,0 +1,13 @@
+WITH symbol_cte
+AS(
+select '*' as symbol, '	' as tabspace,5 as depth,3 as level
+)
+select replicate(tabspace,(depth-level))+replicate(symbol,1) from symbol_cte
+UNION ALL
+select replicate(tabspace,(depth-(level+1)))+replicate(symbol,3) from symbol_cte
+UNION ALL
+select replicate(tabspace,(depth-(level+2)))+replicate(symbol,5) from symbol_cte
+UNION ALL
+select replicate(tabspace,(depth-(level+1)))+replicate(symbol,3) from symbol_cte
+UNION ALL
+select replicate(tabspace,(depth-level))+replicate(symbol,1) from symbol_cte 
